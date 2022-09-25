@@ -1,0 +1,13 @@
+Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: $'''C:\\Users\\rishy\\Downloads\\Happy Bots.xlsx''' Visible: True ReadOnly: False Instance=> ExcelInstance
+Excel.ReadFromExcel.ReadAllCells Instance: ExcelInstance ReadAsText: False FirstLineIsHeader: False RangeValue=> ExcelData
+SET NewVar TO 1
+LOOP FOREACH CurrentItem IN ExcelData
+    IF NewVar <> 1 THEN
+        CALL Browser_Automation
+        Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: OutputData[0][0] Column: 13 Row: NewVar
+        Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: OutputData[1][0] Column: 14 Row: NewVar
+    END
+    Variables.IncreaseVariable Value: NewVar IncrementValue: 1
+END
+Excel.CloseExcel.CloseAndSave Instance: ExcelInstance
+
